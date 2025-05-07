@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Data Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        .header img {
+            width: 60px;
+            height: 60px;
+            margin-right: 20px;
+        }
+        h1 {
+            color: #d32f2f;
+            margin: 0;
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section-title {
+            color: #d32f2f;
+            border-bottom: 2px solid #d32f2f;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+            position: sticky;
+            top: 0;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .table-container {
+            max-height: 500px;
+            overflow-y: auto;
+            margin-bottom: 30px;
+        }
+        .chart-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+        .chart-box {
+            width: calc(50% - 20px);
+            min-width: 300px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+        @media (max-width: 768px) {
+            .chart-box {
+                width: 100%;
+            }
+        }
+        .filter-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        .filter-controls select, .filter-controls input {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .filter-controls button {
+            padding: 8px 15px;
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .filter-controls button:hover {
+            background-color: #b71c1c;
+        }
+        .summary-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            flex: 1;
+            min-width: 150px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #d32f2f;
+        }
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="https://cdn-icons-png.flaticon.com/512/2583/2583344.png" alt="Heart Icon">
+            <h1>Heart Disease Data Visualization</h1>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">Summary Statistics</h2>
+            <div class="summary-stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="total-patients">0</div>
+                    <div class="stat-label">Total Patients</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="avg-age">0</div>
+                    <div class="stat-label">Average Age</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="heart-disease-rate">0%</div>
+                    <div class="stat-label">Heart Disease Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="avg-chol">0</div>
+                    <div class="stat-label">Avg Cholesterol</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">Data Table</h2>
+            <div class="filter-controls">
+                <select id="filter-column">
+                    <option value="">All Columns</option>
+                    <option value="age">Age</option>
+                    <option value="sex">Sex</option>
+                    <option value="cp">Chest Pain Type</option>
+                    <option value="trestbps">Resting BP</option>
+                    <option value="chol">Cholesterol</option>
+                    <option value="fbs">Fasting Blood Sugar</option>
+                    <option value="target">Heart Disease</option>
+                </select>
+                <select id="filter-operator">
+                    <option value="=">=</option>
+                    <option value=">">></option>
+                    <option value="<"><</option>
+                    <option value=">=">>=</option>
+                    <option value="<="><=</option>
+                    <option value="!=">!=</option>
+                </select>
+                <input type="text" id="filter-value" placeholder="Value">
+                <button id="apply-filter">Apply Filter</button>
+                <button id="reset-filter">Reset</button>
+            </div>
+            <div class="table-container">
+                <table id="data-table">
+                    <thead>
+                        <tr>
+                            <th>Age</th>
+                            <th>Sex</th>
+                            <th>Chest Pain</th>
+                            <th>Resting BP</th>
+                            <th>Cholesterol</th>
+                            <th>Fasting BS</th>
+                            <th>Resting ECG</th>
+                            <th>Max HR</th>
+                            <th>Exercise Angina</th>
+                            <th>ST Depression</th>
+                            <th>Slope</th>
+                            <th>Major Vessels</th>
+                            <th>Thalassemia</th>
+                            <th>Heart Disease</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                        <!-- Data will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">Data Visualizations</h2>
+            <div class="chart-container">
+                <div class="chart-box">
+                    <canvas id="ageDistributionChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <canvas id="genderDistributionChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <canvas id="heartDiseaseByAgeChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <canvas id="cholesterolDistributionChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <canvas id="chestPainTypeChart"></canvas>
+                </div>
+                <div class="chart-box">
+                    <canvas id="bloodPressureChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data (in a real app, you would load this from a file or API)
+        const heartData = [
+            {age:63,sex:1,cp:3,trestbps:145,chol:233,fbs:1,restecg:0,thalach:150,exang:0,oldpeak:2.3,slope:0,ca:0,thal:1,target:1},
+            {age:37,sex:1,cp:2,trestbps:130,chol:250,fbs:0,restecg:1,thalach:187,exang:0,oldpeak:3.5,slope:0,ca:0,thal:2,target:1},
+            {age:41,sex:0,cp:1,trestbps:130,chol:204,fbs:0,restecg:0,thalach:172,exang:0,oldpeak:1.4,slope:2,ca:0,thal:2,target:1},
+            // ... (all the rest of your data would be here)
+            // I'm showing just a few rows for the example
+            {age:57,sex:0,cp:1,trestbps:130,chol:236,restecg:0,thalach:174,exang:0,oldpeak:0,slope:1,ca:1,thal:2,target:0}
+        ];
+
+        // Function to display data in table
+        function displayData(data) {
+            const tableBody = document.getElementById('table-body');
+            tableBody.innerHTML = '';
+            
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                
+                tr.innerHTML = `
+                    <td>${row.age}</td>
+                    <td>${row.sex === 1 ? 'Male' : 'Female'}</td>
+                    <td>${getChestPainType(row.cp)}</td>
+                    <td>${row.trestbps}</td>
+                    <td>${row.chol}</td>
+                    <td>${row.fbs === 1 ? '>120' : '<=120'}</td>
+                    <td>${getRestingECG(row.restecg)}</td>
+                    <td>${row.thalach}</td>
+                    <td>${row.exang === 1 ? 'Yes' : 'No'}</td>
+                    <td>${row.oldpeak}</td>
+                    <td>${getSlope(row.slope)}</td>
+                    <td>${row.ca}</td>
+                    <td>${getThalassemia(row.thal)}</td>
+                    <td>${row.target === 1 ? 'Yes' : 'No'}</td>
+                `;
+                
+                tableBody.appendChild(tr);
+            });
+            
+            updateSummaryStats(data);
+            updateCharts(data);
+        }
+        
+        // Helper functions to decode categorical values
+        function getChestPainType(cp) {
+            const types = ['Typical angina', 'Atypical angina', 'Non-anginal pain', 'Asymptomatic'];
+            return types[cp] || cp;
+        }
+        
+        function getRestingECG(restecg) {
+            const types = ['Normal', 'ST-T wave abnormality', 'Left ventricular hypertrophy'];
+            return types[restecg] || restecg;
+        }
+        
+        function getSlope(slope) {
+            const types = ['Upsloping', 'Flat', 'Downsloping'];
+            return types[slope] || slope;
+        }
+        
+        function getThalassemia(thal) {
+            const types = ['Normal', 'Fixed defect', 'Reversible defect'];
+            return types[thal] || thal;
+        }
+        
+        // Function to update summary statistics
+        function updateSummaryStats(data) {
+            document.getElementById('total-patients').textContent = data.length;
+            
+            const avgAge = data.reduce((sum, row) => sum + row.age, 0) / data.length;
+            document.getElementById('avg-age').textContent = avgAge.toFixed(1);
+            
+            const heartDiseaseCount = data.filter(row => row.target === 1).length;
+            const heartDiseaseRate = (heartDiseaseCount / data.length) * 100;
+            document.getElementById('heart-disease-rate').textContent = heartDiseaseRate.toFixed(1) + '%';
+            
+            const avgChol = data.reduce((sum, row) => sum + row.chol, 0) / data.length;
+            document.getElementById('avg-chol').textContent = avgChol.toFixed(0);
+        }
+        
+        // Function to update all charts
+        function updateCharts(data) {
+            updateAgeDistributionChart(data);
+            updateGenderDistributionChart(data);
+            updateHeartDiseaseByAgeChart(data);
+            updateCholesterolDistributionChart(data);
+            updateChestPainTypeChart(data);
+            updateBloodPressureChart(data);
+        }
+        
+        // Chart update functions
+        function updateAgeDistributionChart(data) {
+            const ageRanges = {
+                '20-29': data.filter(row => row.age >= 20 && row.age < 30).length,
+                '30-39': data.filter(row => row.age >= 30 && row.age < 40).length,
+                '40-49': data.filter(row => row.age >= 40 && row.age < 50).length,
+                '50-59': data.filter(row => row.age >= 50 && row.age < 60).length,
+                '60-69': data.filter(row => row.age >= 60 && row.age < 70).length,
+                '70+': data.filter(row => row.age >= 70).length
+            };
+            
+            const ctx = document.getElementById('ageDistributionChart').getContext('2d');
+            
+            if (window.ageChart) {
+                window.ageChart.destroy();
+            }
+            
+            window.ageChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(ageRanges),
+                    datasets: [{
+                        label: 'Number of Patients',
+                        data: Object.values(ageRanges),
+                        backgroundColor: 'rgba(211, 47, 47, 0.7)',
+                        borderColor: 'rgba(211, 47, 47, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Age Distribution of Patients'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+        
+        function updateGenderDistributionChart(data) {
+            const maleCount = data.filter(row => row.sex === 1).length;
+            const femaleCount = data.filter(row => row.sex === 0).length;
+            
+            const ctx = document.getElementById('genderDistributionChart').getContext('2d');
+            
+            if (window.genderChart) {
+                window.genderChart.destroy();
+            }
+            
+            window.genderChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Male', 'Female'],
+                    datasets: [{
+                        data: [maleCount, femaleCount],
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 99, 132, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 99, 132, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Gender Distribution'
+                        }
+                    }
+                }
+            });
+        }
+        
+        function updateHeartDiseaseByAgeChart(data) {
+            const ageRanges = ['20-29', '30-39', '40-49', '50-59', '60-69', '70+'];
+            const heartDiseaseData = [];
+            const noHeartDiseaseData = [];
+            
+            ageRanges.forEach(range => {
+                const [min, max] = range === '70+' ? [70, 120] : 
+                    range.split('-').map(Number);
+                
+                const rangeData = data.filter(row => 
+                    row.age >= min && (max ? row.age <= max : true));
+                
+                const diseaseCount = rangeData.filter(row => row.target === 1).length;
+                const noDiseaseCount = rangeData.filter(row => row.target === 0).length;
+                
+                heartDiseaseData.push(diseaseCount);
+                noHeartDiseaseData.push(noDiseaseCount);
+            });
+            
+            const ctx = document.getElementById('heartDiseaseByAgeChart').getContext('2d');
+            
+            if (window.heartDiseaseAgeChart) {
+                window.heartDiseaseAgeChart.destroy();
+            }
+            
+            window.heartDiseaseAgeChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ageRanges,
+                    datasets: [
+                        {
+                            label: 'Heart Disease',
+                            data: heartDiseaseData,
+                            backgroundColor: 'rgba(211, 47, 47, 0.7)',
+                            borderColor: 'rgba(211, 47, 47, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'No Heart Disease',
+                            data: noHeartDiseaseData,
+                            backgroundColor: 'rgba(75, 192, 192, 0.7)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Heart Disease by Age Group'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            stacked: true
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+        
+        function updateCholesterolDistributionChart(data) {
+            const cholRanges = {
+                'Normal (<200)': data.filter(row => row.chol < 200).length,
+                'Borderline (200-239)': data.filter(row => row.chol >= 200 && row.chol < 240).length,
+                'High (>=240)': data.filter(row => row.chol >= 240).length
+            };
+            
+            const ctx = document.getElementById('cholesterolDistributionChart').getContext('2d');
+            
+            if (window.cholChart) {
+                window.cholChart.destroy();
+            }
+            
+            window.cholChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(cholRanges),
+                    datasets: [{
+                        data: Object.values(cholRanges),
+                        backgroundColor: [
+                            'rgba(75, 192, 192, 0.7)',
+                            'rgba(255, 206, 86, 0.7)',
+                            'rgba(255, 99, 132, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(255, 99, 132, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Cholesterol Levels Distribution'
+                        }
+                    }
+                }
+            });
+        }
+        
+        function updateChestPainTypeChart(data) {
+            const painTypes = {
+                'Typical angina': data.filter(row => row.cp === 0).length,
+                'Atypical angina': data.filter(row => row.cp === 1).length,
+                'Non-anginal pain': data.filter(row => row.cp === 2).length,
+                'Asymptomatic': data.filter(row => row.cp === 3).length
+            };
+            
+            const ctx = document.getElementById('chestPainTypeChart').getContext('2d');
+            
+            if (window.chestPainChart) {
+                window.chestPainChart.destroy();
+            }
+            
+            window.chestPainChart = new Chart(ctx, {
+                type: 'polarArea',
+                data: {
+                    labels: Object.keys(painTypes),
+                    datasets: [{
+                        data: Object.values(painTypes),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.7)',
+                            'rgba(54, 162, 235, 0.7)',
+                            'rgba(255, 206, 86, 0.7)',
+                            'rgba(75, 192, 192, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Chest Pain Type Distribution'
+                        }
+                    }
+                }
+            });
+        }
+        
+        function updateBloodPressureChart(data) {
+            const bpCategories = {
+                'Normal (<120)': data.filter(row => row.trestbps < 120).length,
+                'Elevated (120-129)': data.filter(row => row.trestbps >= 120 && row.trestbps < 130).length,
+                'High Stage 1 (130-139)': data.filter(row => row.trestbps >= 130 && row.trestbps < 140).length,
+                'High Stage 2 (>=140)': data.filter(row => row.trestbps >= 140).length
+            };
+            
+            const ctx = document.getElementById('bloodPressureChart').getContext('2d');
+            
+            if (window.bpChart) {
+                window.bpChart.destroy();
+            }
+            
+            window.bpChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(bpCategories),
+                    datasets: [{
+                        label: 'Number of Patients',
+                        data: Object.values(bpCategories),
+                        backgroundColor: 'rgba(153, 102, 255, 0.7)',
+                        borderColor: 'rgba(153, 102, 255, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Blood Pressure Categories'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Filter functionality
+        document.getElementById('apply-filter').addEventListener('click', () => {
+            const column = document.getElementById('filter-column').value;
+            const operator = document.getElementById('filter-operator').value;
+            const value = document.getElementById('filter-value').value;
+            
+            if (!column) {
+                displayData(heartData);
+                return;
+            }
+            
+            let filteredData;
+            
+            if (operator === '=') {
+                filteredData = heartData.filter(row => row[column] == value);
+            } else if (operator === '>') {
+                filteredData = heartData.filter(row => row[column] > value);
+            } else if (operator === '<') {
+                filteredData = heartData.filter(row => row[column] < value);
+            } else if (operator === '>=') {
+                filteredData = heartData.filter(row => row[column] >= value);
+            } else if (operator === '<=') {
+                filteredData = heartData.filter(row => row[column] <= value);
+            } else if (operator === '!=') {
+                filteredData = heartData.filter(row => row[column] != value);
+            }
+            
+            displayData(filteredData);
+        });
+        
+        document.getElementById('reset-filter').addEventListener('click', () => {
+            document.getElementById('filter-column').value = '';
+            document.getElementById('filter-value').value = '';
+            displayData(heartData);
+        });
+        
+        // Initialize the page with all data
+        displayData(heartData);
+    </script>
+</body>
+</html>
