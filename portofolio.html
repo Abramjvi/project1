@@ -8,6 +8,293 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         /* CSS Styling */
+        /* ... (kode CSS sebelumnya tetap sama) ... */
+
+        /* Tambahan CSS untuk Robot Animasi */
+        .robot-ornament {
+            position: fixed;
+            bottom: 50px;
+            right: 50px;
+            width: 120px;
+            height: 180px;
+            z-index: 999;
+            pointer-events: none;
+            transform-origin: center bottom;
+            animation: floatRobot 6s ease-in-out infinite;
+        }
+
+        .robot-body {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .robot-head {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(145deg, #3498db, #2c3e50);
+            border-radius: 50% 50% 45% 45%;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 3px solid rgba(255,255,255,0.2);
+        }
+
+        .robot-eye {
+            position: absolute;
+            top: 20px;
+            width: 12px;
+            height: 12px;
+            background-color: #e74c3c;
+            border-radius: 50%;
+            animation: blinkEyes 5s infinite;
+        }
+
+        .robot-eye.left {
+            left: 15px;
+        }
+
+        .robot-eye.right {
+            right: 15px;
+        }
+
+        .robot-eye-light {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 4px;
+            height: 4px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .robot-torso {
+            position: absolute;
+            top: 55px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 80px;
+            background: linear-gradient(145deg, #2c3e50, #3498db);
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 3px solid rgba(255,255,255,0.2);
+        }
+
+        .robot-panel {
+            position: absolute;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 30px;
+            background-color: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .robot-led {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #2ecc71;
+            animation: blinkLeds 2s infinite;
+        }
+
+        .robot-led:nth-child(2) {
+            animation-delay: 0.4s;
+            background-color: #f1c40f;
+        }
+
+        .robot-led:nth-child(3) {
+            animation-delay: 0.8s;
+            background-color: #e74c3c;
+        }
+
+        .robot-arm {
+            position: absolute;
+            width: 15px;
+            height: 60px;
+            background: linear-gradient(145deg, #2c3e50, #3498db);
+            border-radius: 8px;
+            top: 60px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 3px solid rgba(255,255,255,0.2);
+        }
+
+        .robot-arm.left {
+            left: -10px;
+            transform-origin: top center;
+            animation: moveLeftArm 4s infinite;
+        }
+
+        .robot-arm.right {
+            right: -10px;
+            transform-origin: top center;
+            animation: moveRightArm 4s infinite;
+        }
+
+        .robot-leg {
+            position: absolute;
+            width: 20px;
+            height: 70px;
+            background: linear-gradient(145deg, #2c3e50, #3498db);
+            border-radius: 8px;
+            bottom: -70px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 3px solid rgba(255,255,255,0.2);
+        }
+
+        .robot-leg.left {
+            left: 15px;
+            transform-origin: top center;
+            animation: moveLeftLeg 3s infinite;
+        }
+
+        .robot-leg.right {
+            right: 15px;
+            transform-origin: top center;
+            animation: moveRightLeg 3s infinite 1.5s;
+        }
+
+        /* Animations */
+        @keyframes floatRobot {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(2deg);
+            }
+        }
+
+        @keyframes blinkEyes {
+            0%, 48%, 52%, 100% {
+                height: 12px;
+                top: 20px;
+            }
+            50% {
+                height: 2px;
+                top: 28px;
+            }
+        }
+
+        @keyframes blinkLeds {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes moveLeftArm {
+            0%, 100% {
+                transform: rotate(-10deg);
+            }
+            50% {
+                transform: rotate(5deg);
+            }
+        }
+
+        @keyframes moveRightArm {
+            0%, 100% {
+                transform: rotate(10deg);
+            }
+            50% {
+                transform: rotate(-5deg);
+            }
+        }
+
+        @keyframes moveLeftLeg {
+            0%, 100% {
+                transform: rotate(-5deg);
+            }
+            50% {
+                transform: rotate(5deg);
+            }
+        }
+
+        @keyframes moveRightLeg {
+            0%, 100% {
+                transform: rotate(5deg);
+            }
+            50% {
+                transform: rotate(-5deg);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .robot-ornament {
+                width: 80px;
+                height: 120px;
+                right: 20px;
+                bottom: 20px;
+            }
+            
+            .robot-head {
+                width: 40px;
+                height: 40px;
+            }
+            
+            .robot-eye {
+                width: 8px;
+                height: 8px;
+                top: 12px;
+            }
+            
+            .robot-eye.left {
+                left: 10px;
+            }
+            
+            .robot-eye.right {
+                right: 10px;
+            }
+            
+            .robot-torso {
+                top: 35px;
+                width: 50px;
+                height: 60px;
+            }
+            
+            .robot-panel {
+                width: 35px;
+                height: 20px;
+                top: 10px;
+            }
+            
+            .robot-led {
+                width: 4px;
+                height: 4px;
+            }
+            
+            .robot-arm {
+                width: 10px;
+                height: 40px;
+                top: 40px;
+            }
+            
+            .robot-leg {
+                width: 15px;
+                height: 50px;
+                bottom: -50px;
+            }
+            
+            .robot-leg.left {
+                left: 10px;
+            }
+            
+            .robot-leg.right {
+                right: 10px;
+            }
+        }
+    </style>
+    <style>
+        /* CSS Styling */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -1429,6 +1716,7 @@ section:hover {
                     
                 </div>
             </div>
+            
             
             <!-- Scroll indicator modern -->
             <div class="modern-scroll-indicator">
