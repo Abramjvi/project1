@@ -1642,7 +1642,77 @@ section:hover {
     opacity: 0.8;
     transform: scale(1.02);
 } 
+/* Mobile Navigation */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #2c3e50;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+}
+
+.mobile-nav-menu {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-nav-item {
+    flex: 1;
+    text-align: center;
+}
+
+.mobile-nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 5px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav-link i {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.mobile-nav-link.active {
+    color: #e74c3c;
+    background: rgba(255,255,255,0.1);
+}
+
+/* Hide sidebar toggle on mobile when mobile nav is shown */
+@media (max-width: 768px) {
+    .sidebar-toggle {
+        display: none;
+    }
+    
+    .mobile-nav {
+        display: block;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding-bottom: 70px; /* Space for mobile nav */
+    }
+    
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+}
     </style>
+    
     
 </head>
 <body>
@@ -2123,6 +2193,42 @@ section:hover {
             </div>
         </div>
     </footer>
+    <!-- Mobile Navigation -->
+<nav class="mobile-nav">
+    <ul class="mobile-nav-menu">
+        <li class="mobile-nav-item">
+            <a href="#tentang" class="mobile-nav-link">
+                <i class="fas fa-user"></i>
+                <span>Tentang</span>
+            </a>
+        </li>
+        <li class="mobile-nav-item">
+            <a href="#pendidikan" class="mobile-nav-link">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Pendidikan</span>
+            </a>
+        </li>
+        <li class="mobile-nav-item">
+            <a href="#pencapaian" class="mobile-nav-link">
+                <i class="fas fa-trophy"></i>
+                <span>Pencapaian</span>
+            </a>
+        </li>
+        <li class="mobile-nav-item">
+            <a href="#organisasi" class="mobile-nav-link">
+                <i class="fas fa-users"></i>
+                <span>Organisasi</span>
+            </a>
+        </li>
+        <li class="mobile-nav-item">
+            <a href="#keterampilan" class="mobile-nav-link">
+                <i class="fas fa-laptop-code"></i>
+                <span>Keterampilan</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
 
     <script>
               function toggleSection(contentId) {
@@ -2554,8 +2660,50 @@ section:hover {
             };
         });
     });
+    // Mobile nav active state
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+    const sections = document.querySelectorAll('section');
+    
+    function setActiveLink() {
+        let index = sections.length;
+        
+        // Find which section is currently in view
+        while(--index && window.scrollY + 100 < sections[index].offsetTop) {}
+        
+        // Remove active class from all links
+        mobileLinks.forEach(link => link.classList.remove('active'));
+        
+        // Add active class to corresponding link
+        if (mobileLinks[index]) {
+            mobileLinks[index].classList.add('active');
+        }
+    }
+    
+    // Set active link on scroll
+    window.addEventListener('scroll', setActiveLink);
+    
+    // Set initial active link
+    setActiveLink();
+    
+    // Smooth scroll for mobile links
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                window.scrollTo({
+                    top: targetSection.offsetTop,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
 </script>
-
 </div>
+
 </body>
 </html>
