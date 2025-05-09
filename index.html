@@ -1740,6 +1740,75 @@ section:hover {
         right: 20px;
     }
 }
+
+/* Perbesar lebar dan tinggi popup detail */
+.achievement-card, .organization-card {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    position: relative;
+    background: white;
+}
+
+/* Perbaiki tampilan gambar dalam popup */
+.achievement-images, .organization-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+    padding-bottom: 15px;
+}
+
+.achievement-images img, .organization-images img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.achievement-images img:hover, .organization-images img:hover {
+    transform: scale(1.03);
+}
+
+/* Perbaiki tombol close */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #e74c3c;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.close-btn:hover {
+    background: #c0392b;
+    transform: scale(1.1);
+}
+
+/* Responsive untuk mobile */
+@media (max-width: 768px) {
+    .achievement-card, .organization-card {
+        width: 95%;
+        padding: 20px;
+    }
+    
+    .achievement-images, .organization-images {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
     </style>
     
     
