@@ -677,6 +677,7 @@ header h1 {
         }
         
         .achievement-card, .organization-card {
+            margin: 100px;
             border: 1px solid #ddd;
             border-radius: 8px;
             padding: 20px;
@@ -864,29 +865,7 @@ header h1 {
         font-size: 0.8rem;
     }
     
-    .social-links {
-        display: flex;
-        gap: 15px;
-        margin-bottom: 25px;
-    }
-    
-    .social-links a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        background: rgba(255,255,255,0.1);
-        border-radius: 50%;
-        color: white;
-        font-size: 1.2rem;
-        transition: all 0.3s ease;
-    }
-    
-    .social-links a:hover {
-        background: #e74c3c;
-        transform: translateY(-5px);
-    }
+   
     
     .newsletter form {
         display: flex;
@@ -982,9 +961,7 @@ header h1 {
             transform: translateX(-50%);
         }
         
-        .social-links {
-            justify-content: center;
-        }
+        
     }
         
         .close-btn {
@@ -1494,10 +1471,11 @@ header h1 {
 }
 
 .section-content.active {
-    max-height: 2000px; /* Adjust based on your content */
-    transition: max-height 0.5s ease-in, padding 0.3s ease;
+    max-height: 5000px; /* Atau nilai yang cukup besar */
+    transition: max-height 0.5s ease-in;
 }
- /* Tambahkan ini di bagian CSS Anda */
+
+ 
 
 /* Gradasi untuk section Tentang */
 #tentang {
@@ -1556,6 +1534,9 @@ section:hover {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.9);
     overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
@@ -1566,11 +1547,7 @@ section:hover {
     max-height: 80vh;
     object-fit: contain;
     animation: zoom 0.3s;
-}
-
-@keyframes zoom {
-    from {transform: scale(0.1)}
-    to {transform: scale(1)}
+    position: relative;
 }
 
 .close-modal {
@@ -1582,11 +1559,7 @@ section:hover {
     font-weight: bold;
     transition: 0.3s;
     cursor: pointer;
-}
-
-.close-modal:hover {
-    color: #e74c3c;
-    transform: rotate(90deg);
+    z-index: 2001;
 }
 
 /* Next & previous buttons */
@@ -1594,6 +1567,7 @@ section:hover {
     cursor: pointer;
     position: absolute;
     top: 50%;
+    transform: translateY(-50%);
     width: auto;
     padding: 16px;
     margin-top: -50px;
@@ -1605,7 +1579,25 @@ section:hover {
     user-select: none;
     -webkit-user-select: none;
     background-color: rgba(0, 0, 0, 0.5);
+     z-index: 2001;
 }
+@keyframes zoom {
+    from {transform: scale(0.1)}
+    to {transform: scale(1)}
+}
+@media (max-width: 768px) {
+    .modal-content {
+        max-width: 95%;
+        max-height: 95vh;
+    }
+}
+
+.close-modal:hover {
+    color: #e74c3c;
+    transform: rotate(90deg);
+}
+
+
 
 .modal-prev {
     left: 0;
@@ -1741,48 +1733,6 @@ section:hover {
     transform: rotate(30deg);
 }
 
-/* Dark Mode Styles */
-body.dark-mode {
-    background-color: #121212;
-    color: #e0e0e0;
-}
-
-.dark-mode header {
-    background: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);
-}
-
-.dark-mode section {
-    background-color: #1e1e1e;
-    border-left: 5px solid #e74c3c;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-}
-
-.dark-mode .skill-content {
-    background-color: #252525;
-}
-
-.dark-mode .timeline::after {
-    background: #e74c3c;
-}
-
-.dark-mode .timeline-content {
-    background-color: #252525;
-}
-
-.dark-mode .achievement-card, 
-.dark-mode .organization-card {
-    background-color: #252525;
-    border-color: #333;
-}
-
-.dark-mode .footer-section a:hover {
-    color: #e74c3c;
-}
-
-.dark-mode .social-icons a:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
 /* Responsive */
 @media (max-width: 768px) {
     .theme-switcher {
@@ -1852,12 +1802,7 @@ body.dark-mode {
                             <span class="title-part highlight">JANUAR</span>
                         </h1>
                         <div class="title-line"></div>
-                    </div>
-                    <div class="theme-switcher">
-                        <button id="theme-toggle" aria-label="Toggle dark mode">
-                            <i class="fas fa-moon"></i>
-                        </button>
-                    </div>
+                   
                     
                     <h2 class="subtitle typing-animation">Mechatronics Engineering Student</h2>
                     
@@ -1887,8 +1832,12 @@ body.dark-mode {
                 <i class="fas fa-chevron-down"></i>
             </div>
             <div id="tentang-content" class="section-content active">
-                <p>Halo! Saya Abram Januar, mahasiswa program studi Mekatronika di Politeknik Astra. Saya memiliki ketertarikan kuat dalam bidang Machining, Electrical, dan Programming. Kombinasi dari minat ini mendorong saya untuk terus menggali pengetahuan dan mengembangkan keterampilan lintas disiplin.</p>
-                <p>Saya dikenal sebagai pribadi yang penasaran, berorientasi pada solusi, dan selalu bersemangat mempelajari hal-hal baru, terutama yang berkaitan dengan teknologi dan otomasi. Dalam setiap proyek atau kegiatan, saya berusaha memberikan kontribusi terbaik dan terbuka terhadap tantangan baru yang dapat memperkaya pengalaman saya.</p>
+                <p>Halo Saya Abram Januar, Seorang Mahasiswa Mekatronika di Politeknik Astra dengan passion di bidang Machining, Electrical, dan Programming. Dengan ketiga bidang ini saya percaya akan membuka pelaung besar dalam pengembangan teknologi otomasi dan sistem invasi.</p>
+                <p>Dengan rasa ingin tahu yang tinggi tehadap hal-hal teknis, terutama yang berkaitan dengan Microcontroller, Kontrol Industri, dan Pemrogrman database. Saya menikmati proses memecahkan masalah dengan kreatif, baik dalam mendesain komponen mekanik, merancang sistem kelistrikan, dan membuat kode untuk kontrol mesin.</p>
+                <p>Selama berkuliah, saya aktif dalam mengikuti berbagai kompetisi internal maupun eksternal kampus, beberapa pencapaian pun berhasil saya dapatkan mulai dari lomba yang diselengarakan kampus, nasioanl, dan internasional. Saya juga turut aktif dalam mengikuti organisasi yang ada, ini memperluas wawasan saya dalam hal bersosial. Hal-hal tersebut saya lakukan untuk mengasah kemampuan teknis dan soft skill saya, dan juga karena saya menyukai hal baru dan mencoba untuk terbuka atas setiap tantangan yang ada. Karena setiap perjuangan pasti membuahkan hasil.</p>
+                <p>Dalam hal akdemik, saya mengerjakan setiap tugas yang ada dengan baik dan menjalankan projek dengan perhatian lebih, hal ini membuahkan hasil yang sepadan dengan hasil IPK yang memuaskan. Saya senang untuk dapat berdiskusi dengan sesama mengenai perkembangan teknologi, hal ini mendorong saya untuk melakukan projek-projek kecil bersama teman-teman saya, dengan menggunakan barang barang elektro yang ada di pasaran saya membuat projek pembacaan kondisi aki motor, dan baterai mobil.</p>
+                <p>Saya selalu berusaha memberikan yang terbaik dalam setiap kesempatan, baik dalam tim maupun secara mandiri. Jika Anda memiliki proyek menarik atau ingin berkolaborasi, jangan ragu untuk menghubungi saya! </p>
+            
             </div>
         </section>
     
@@ -1979,12 +1928,13 @@ body.dark-mode {
             <button class="close-btn" onclick="hideAllAchievementDetails()">× Tutup</button>
             <h3>Kontes Robot Indonesia</h3>
             <div class="achievement-images">
-                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.18_bd2c341e.jpg" alt="Robot 1">
-                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.18_8c43d7dc.jpg" alt="Robot 2">
-                <img src="img/KRI&cherimek.JPG" alt="Robot 3">
-                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.19_7bf28eed.jpg" alt="Robot 4">
-                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.19_b8018fc9.jpg" alt="Robot 5">
-                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.21_b2b25c9f.jpg" alt="Robot 6">
+                <img src="imgkri/kri_utama2.jpg" alt="Tim Kri Astratech">
+                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.18_bd2c341e.jpg" alt="Arena Kri dari Tribun ">
+                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.18_8c43d7dc.jpg" alt="Kantin Kri">
+                <img src="img/KRI&cherimek.JPG" alt="Tim submarine dan cherimek">
+                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.19_7bf28eed.jpg" alt="Arena Kri dari tribun 2">
+                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.19_b8018fc9.jpg" alt="Arena Kri lomba Abu">
+                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.21_b2b25c9f.jpg" alt="Gedung edutorium ">
             </div>
             <p><strong>Deskripsi:</strong> Kompetisi robot nasional yang diadakan setiap tahun oleh Kementerian Pendidikan dan Kebudayaan Republik Indonesia. Kompetisi ini menantang peserta untuk membuat robot yang dapat menyelesaikan berbagai tugas kompleks dalam waktu tertentu.</p>
             <p><strong>Tahun:</strong> 2024</p>
@@ -1999,11 +1949,12 @@ body.dark-mode {
             <button class="close-btn" onclick="hideAllAchievementDetails()">× Tutup</button>
             <h3>AISEEF Competition</h3>
             <div class="achievement-images">
-                <img src="imgaisef/aiseef_2.jpg" alt="AISEEF 1">
-                <img src="imgaisef/aiseef3.jpg" alt="AISEEF 2">
-                <img src="imgaisef/aiseef4.jpg" alt="AISEEF 3">
-                <img src="imgaisef/aiseef5.jpg" alt="AISEEF 4">
-                <img src="imgaisef/aiseef_sertif.png" alt="AISEEF 5">
+                <img src="img/aiseef_utama.JPG" alt="foto projek bulldozer kampus ">
+                <img src="imgaisef/aiseef_2.jpg" alt="tim Aiseef">
+                <img src="imgaisef/aiseef3.jpg" alt="Presentasi">
+                <img src="imgaisef/aiseef4.jpg" alt="Project U-wise">
+                <img src="imgaisef/aiseef5.jpg" alt="foto pra presentasi">
+                <img src="imgaisef/aiseef_sertif.png" alt="sertifikat">
             </div>
             <p><strong>Deskripsi:</strong> Asean Innovative Science Environmental and Entrepreneur Fair (AISEEF) adalah kompetisi internasional di bidang sains, teknologi, dan kewirausahaan yang diadakan di Semarang, Indonesia.</p>
             <p><strong>Tahun:</strong> 2024</p>
@@ -2018,9 +1969,10 @@ body.dark-mode {
             <button class="close-btn" onclick="hideAllAchievementDetails()">× Tutup</button>
             <h3>PLC Competition</h3>
             <div class="achievement-images">
-                <img src="imgted/ted3.jpg" alt="PLC 1">
-                <img src="imgted/ted_2.jpg" alt="PLC 2">
-                <img src="imgted/TED_sertif.png" alt="PLC 3">
+                <img src="img/IMG-20250505-WA0052[1].JPG" alt="Penerimaan Piala dan piagam">
+                <img src="imgted/ted3.jpg" alt="foto didepan taman Sekolah Vokasi UGM ">
+                <img src="imgted/ted_2.jpg" alt="foto bersama penerimaan piala dan piagam">
+                <img src="imgted/TED_sertif.png" alt="Sertifikat">
             </div>
             <p><strong>Deskripsi:</strong> Lomba pemrograman PLC - TED yang diselenggarakan oleh Sekolah Vokasi UGM/p>
             <p><strong>Tahun:</strong> 2024</p>
@@ -2035,10 +1987,11 @@ body.dark-mode {
             <button class="close-btn" onclick="hideAllAchievementDetails()">× Tutup</button>
             <h3>Agridation Day</h3>
             <div class="achievement-images">
-                <img src="imgagri/agri_1.jpg" alt="Agridation 1">
-                <img src="imgagri/agri_2.jpg" alt="Agridation 2">
-                <img src="imgagri/design.png" alt="Agridation 3">
-                <img src="imgagri/agri_sertif.png" alt="Agridation 4">
+                <img src="imgkri/agridation_utama.jpg" alt="Tim scorpio">
+                <img src="imgagri/agri_1.jpg" alt="foto bersama di didepan alun alun">
+                <img src="imgagri/agri_2.jpg" alt="foto bersama panitia dan juri">
+                <img src="imgagri/design.png" alt="foto projek sistem irigasi air">
+                <img src="imgagri/agri_sertif.png" alt="sertifikat">
             </div>
             <p><strong>Deskripsi:</strong> Ajang presentasi proyek teknologi pertanian inovatif yang diselenggarakan oleh Kementerian Pertanian bekerja sama dengan beberapa universitas ternama.</p>
             <p><strong>Tahun:</strong> 2024</p>
@@ -2097,12 +2050,13 @@ body.dark-mode {
             <button class="close-btn" onclick="hideAllOrganizationDetails()">× Tutup</button>
             <h3>Himma Mekatronika</h3>
             <div class="organization-images">
-                <img src="img/himma_angkatan.jpg" alt="Himma 1">
-                <img src="img/himma_makrab.jpg" alt="Himma 2">
-                <img src="img/himma_band.jpg" alt="Himma 3">
-                <img src="img/Himma_bukber.jpg" alt="Himma 4">
-                <img src="img/himma-pilih.jpg" alt="Himma 5">
-                <img src="img/himma_makrab2.jpg" alt="Himma 6">
+                <img src="img/himma.jpg" alt="MK 22 in Makrab 2024">
+                <img src="img/himma_angkatan.jpg" alt="MK 22">
+                <img src="img/himma_makrab.jpg" alt="malam keakraban">
+                <img src="img/himma_band.jpg" alt="Mek Band">
+                <img src="img/Himma_bukber.jpg" alt="Buka bersama Mekatronika">
+                <img src="img/himma-pilih.jpg" alt="Debat Calon Ketua Himma 2023">
+                <img src="img/himma_makrab2.jpg" alt="Makrab 2023">
             </div>
             <p><strong>Deskripsi:</strong> Himpunan Mahasiswa Mekatronika Politeknik Astra adalah organisasi kemahasiswaan yang menaungi seluruh mahasiswa program studi Mekatronika.</p>
             <p><strong>Periode:</strong> 2022 - 2024</p>
@@ -2126,11 +2080,12 @@ body.dark-mode {
             <button class="close-btn" onclick="hideAllOrganizationDetails()">× Tutup</button>
             <h3>KMK Astratech</h3>
             <div class="organization-images">
-                <img src="img/KMK_band.JPG" alt="KMK 1">
-                <img src="img/KMK_Paskah.JPG" alt="KMK 2">
-                <img src="img/DSC02305.JPG" alt="KMK 3">
-                <img src="img/DSC02426.JPG" alt="KMK 4">
-                <img src="img/IMG_0799.JPG" alt="KMK 5">
+                <img src="img/KMK.JPG" alt="Natal Astratech 2023">
+                <img src="img/KMK_band.JPG" alt="Band Natal Astratech 2023">
+                <img src="img/KMK_Paskah.JPG" alt="Paskah Astratech 2024">
+                <img src="img/DSC02305.JPG" alt="Retreat KMK 2024">
+                <img src="img/DSC02426.JPG" alt="Ibadah bersama di Paroki sahabat Yesus">
+                <img src="img/IMG_0799.JPG" alt="Materi bersama bapak Tony Harley Silalahi">
             </div>
             <p><strong>Deskripsi:</strong> Keluarga Mahasiswa Kristiani Astratech adalah wadah bagi mahasiswa Kristiani Politeknik Astra untuk berkumpul dan beribadah.</p>
             <p><strong>Periode:</strong> 2023 - 2024</p>
@@ -2154,12 +2109,12 @@ body.dark-mode {
             <button class="close-btn" onclick="hideAllOrganizationDetails()">× Tutup</button>
             <h3>Vopma</h3>
             <div class="organization-images">
-                <img src="img/vopma_wisuda2.jpg" alt="Vopma 1" >
-                <img src="img/Vopma_Wisuda.jpg" alt="Vopma 2">
-                <img src="img/vopmas_parent2.jpg" alt="Vopma 3" >
-                <img src="img/Vopma_17.jpg" alt="Vopma 4">
-                <img src="img/Vopma_fotbar.JPG" alt="Vopma 5" >
-                <img src="img/Vopma_parent3.jpg" alt="Vopma 6" >
+                <img src="img/Vopma_Wisuda.jpg" alt="Wisuda XXIV Politeknik Astra" >
+                <img src="img/vopma_wisuda2.jpg" alt="Wisuda XXV Politeknik Astra" >
+                <img src="img/vopmas_parent2.jpg" alt="17 Agustus 2024" >
+                <img src="img/Vopma_17.jpg" alt="17 Agustus 2023">
+                <img src="img/Vopma_fotbar.JPG" alt="Foto Kepengurusan" >
+                <img src="img/Vopma_parent3.jpg" alt="Parent Gathering" >
 
             </div>
             <p><strong>Deskripsi:</strong> Voice of Politechnic Manufaktur Astra adalah paduan suara mahasiswa vokasi Astra yang fokus pada pengembangan suara, Yang memiliki keterlibatan dalam mengisi acara 17 Agustus, Parent day, Wisuda, Penyambutan tamu dan lainnya .</p>
@@ -2226,12 +2181,12 @@ body.dark-mode {
             <h2>Kontak</h2>
             <i class="fas fa-chevron-down"></i>
         </div>
-    <div id="kontak-content" class="section-content active">
-        <p>Email: abramjanuar16@gmail.com</p>
-        <p>Instagram: abram_jvi</p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/abram-januar-ab8aa02b2" target="_blank">linkedin.com/in/abram-januar-ab8aa02b2</a></p>
-        <p>GitHub: <a href="#" target="_blank">github.com/Abramjvi</a></p>
-    </div>
+        <div id="kontak-content" class="section-content active">
+            <p>Email: abramjanuar16@gmail.com</p>
+            <p>Instagram: <a href="https://instagram.com/abram_jvi" target="_blank">@abram_jvi</a></p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/abram-januar-ab8aa02b2" target="_blank">linkedin.com/in/abram-januar-ab8aa02b2</a></p>
+            <p>GitHub: <a href="https://github.com/Abramjvi" target="_blank">github.com/Abramjvi</a></p>
+        </div>
     </section>
     
     <footer>
@@ -2258,12 +2213,11 @@ body.dark-mode {
                 
                 <div class="footer-section social">
                     <h3>Hubungi Saya</h3>
-                    <div class="social-links">
-                        <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <div class="social-icons">
+                        <a href="https://linkedin.com/in/abram-januar-ab8aa02b2" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/Abramjvi" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://instagram.com/abram_jvi" target="_blank"><i class="fab fa-instagram"></i></a>
                         <a href="mailto:abramjanuar16@gmail.com"><i class="fas fa-envelope"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
                     </div>
                     
                 </div>
@@ -2640,23 +2594,85 @@ body.dark-mode {
             }
         }
     
-        // Initialize all sections to be closed except the first one
-        document.addEventListener('DOMContentLoaded', function() {
-            const sections = document.querySelectorAll('.section-content');
-            sections.forEach((section, index) => {
-                if (index !== 0) { // Keep first section open, close others
-                    section.classList.remove('active');
-                    const icon = section.previousElementSibling.querySelector('i');
-                    icon.classList.remove('fa-chevron-up');
-                    icon.classList.add('fa-chevron-down');
-                }
-            });
-        });
+      document.addEventListener('DOMContentLoaded', function() {
+    // Buka semua section
+    const sections = document.querySelectorAll('.section-content');
+    sections.forEach(section => {
+        section.classList.add('active');
+        const icon = section.previousElementSibling.querySelector('i');
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-up');
+    });
+    
+    // Inisialisasi lainnya...
+});
     
         // Rest of your existing JavaScript code...
         // [Keep all your existing carousel and other functionality code]
     </script>
+<style>
+    .modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
+.modal-content {
+  max-width: 100vw;
+  max-height: 90vh;
+  object-fit: contain;
+  margin: auto;
+}
+
+.modal-caption {
+  color: #fff;
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 16px;
+  max-width: 90vw;
+  word-wrap: break-word;
+}
+
+.close-modal {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.modal-nav {
+  position: absolute;
+  top: 50%;
+  font-size: 40px;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  user-select: none;
+  z-index: 10000;
+}
+
+.modal-prev {
+  left: 10px;
+}
+
+.modal-next {
+  right: 10px;
+}
+
+</style>
       <!-- The Modal -->
 <div id="imageModal" class="modal">
     <span class="close-modal" onclick="closeModal()">&times;</span>
@@ -2677,9 +2693,12 @@ body.dark-mode {
         const modalImg = document.getElementById("modalImage");
         const captionText = document.getElementById("caption");
         
-        modal.style.display = "block";
+        modal.style.display = "flex";
         modalImg.src = currentImages[currentImageIndex].src;
         captionText.innerHTML = currentImages[currentImageIndex].alt || "";
+        modalImg.onload = function() {
+
+        };
     }
     
     // Close the modal
@@ -2733,16 +2752,7 @@ body.dark-mode {
             };
         });
         
-        // Also make carousel preview images clickable
-        document.querySelectorAll('.achievement-preview img, .organization-preview img').forEach(img => {
-            img.classList.add('clickable-image');
-            img.onclick = function(e) {
-                e.stopPropagation(); // Prevent triggering the achievement detail
-                const container = this.closest('.achievement-slide, .organization-slide');
-                const images = [this];
-                openModal(images, 0);
-            };
-        });
+       
     });
     // Mobile nav active state
 document.addEventListener('DOMContentLoaded', function() {
