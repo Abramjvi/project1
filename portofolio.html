@@ -306,90 +306,274 @@
         }
         
         /* Sidebar Styling */
-        .sidebar {
-            height: 100%;
-            width: 250px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            background-color: #2c3e50;
-            overflow-x: hidden;
-            transition: 0.5s;
-            padding-top: 20px;
-            z-index: 1000;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-        }
         
-        .sidebar-header {
-            padding: 0 20px 20px;
-            text-align: center;
-            color: white;
-        }
-        
-        .sidebar-header h2 {
-            margin: 0;
-            font-size: 1.5rem;
-        }
-        
-        .sidebar-menu {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-        
-        .sidebar-menu li {
-            padding: 0;
-        }
-        
-        .sidebar-menu a {
-            padding: 12px 20px;
-            text-decoration: none;
-            font-size: 1.1rem;
-            color: white;
-            display: flex;
-            align-items: center;
-            transition: 0.3s;
-            border-left: 4px solid transparent;
-        }
-        
-        .sidebar-menu a i {
-            margin-right: 10px;
-            width: 20px;
-            text-align: center;
-        }
-        
-        .sidebar-menu a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-left: 4px solid #e74c3c;
-            color: white;
-        }
-        
-        .sidebar-menu a.active {
-            background-color: rgba(255, 255, 255, 0.2);
-            border-left: 4px solid #e74c3c;
-        }
-        
-        .sidebar-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            font-size: 1.8rem;
-            color: white;
-            cursor: pointer;
-            z-index: 1100;
-            background-color: #2c3e50;
-            padding: 10px;
-            border-radius: 50%;
-            display: none;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
+
+/* Sidebar Toggle */
+.sidebar-toggle {
+    position: fixed;
+    top: 25px;
+    left: 25px;
+    z-index: 1000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sidebar-toggle:hover {
+    transform: scale(1.1);
+}
+
+.hamburger {
+    width: 30px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(45deg, #4b6cb7, #182848);
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.sidebar.active + .sidebar-toggle .hamburger span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+
+.sidebar.active + .sidebar-toggle .hamburger span:nth-child(2) {
+    opacity: 0;
+}
+
+.sidebar.active + .sidebar-toggle .hamburger span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+
+/* Sidebar Main Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 280px;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 5px 0 30px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+/* Sidebar Header */
+.sidebar-header {
+    padding: 30px 20px 20px;
+    text-align: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.profile-mini {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 15px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(75, 108, 183, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.profile-mini img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.sidebar-header h2 {
+    margin: 10px 0 5px;
+    font-size: 1.4rem;
+    color: #333;
+}
+
+.sidebar-header p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.sidebar-divider {
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(75, 108, 183, 0.3), transparent);
+    margin: 20px 0;
+}
+
+/* Sidebar Menu */
+.sidebar-menu {
+    list-style: none;
+    padding: 0 15px;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.sidebar-menu li {
+    position: relative;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    color: #555;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.menu-icon {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    color: #4b6cb7;
+    transition: all 0.3s ease;
+}
+
+.sidebar-menu li a span {
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.hover-effect {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(75, 108, 183, 0.1), rgba(75, 108, 183, 0.2));
+    transition: all 0.4s ease;
+    z-index: -1;
+}
+
+.sidebar-menu li a:hover {
+    color: #4b6cb7;
+    transform: translateX(5px);
+}
+
+.sidebar-menu li a:hover .menu-icon {
+    transform: scale(1.1);
+}
+
+.sidebar-menu li a:hover .hover-effect {
+    left: 0;
+}
+
+.sidebar-menu li .nav-link.active {
+    background: rgba(75, 108, 183, 0.1);
+    color: #4b6cb7;
+    font-weight: 500;
+}
+
+.sidebar-menu li .nav-link.active .menu-icon {
+    color: #4b6cb7;
+}
+
+/* Sidebar Footer */
+.sidebar-footer {
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.social-icon {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(75, 108, 183, 0.1);
+    color: #4b6cb7;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    background: #4b6cb7;
+    color: white;
+    transform: translateY(-3px);
+}
+
+.sidebar-footer p {
+    margin: 10px 0 0;
+    font-size: 0.8rem;
+    color: #888;
+}
+
+/* Animation when sidebar opens */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.sidebar.active .sidebar-menu li {
+    animation: fadeIn 0.4s ease forwards;
+}
+
+.sidebar.active .sidebar-menu li:nth-child(1) { animation-delay: 0.1s; }
+.sidebar.active .sidebar-menu li:nth-child(2) { animation-delay: 0.2s; }
+.sidebar.active .sidebar-menu li:nth-child(3) { animation-delay: 0.3s; }
+.sidebar.active .sidebar-menu li:nth-child(4) { animation-delay: 0.4s; }
+.sidebar.active .sidebar-menu li:nth-child(5) { animation-delay: 0.5s; }
+.sidebar.active .sidebar-menu li:nth-child(6) { animation-delay: 0.6s; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 250px;
+        left: -250px;
+    }
+}
+
         
         /* Main Content */
-        .main-content {
-            margin-left: 250px;
-            transition: margin-left 0.5s;
-        }
-        
+       .main-content {
+    transition: margin-left 0.5s;
+    width: 100%;
+}
+
+/* Ketika sidebar aktif (terbuka) */
+.sidebar.active + .main-content {
+    margin-left: 280px;
+    width: calc(100% - 280px);
+}
+
+/* Untuk tampilan mobile */
+@media (max-width: 768px) {
+    .sidebar.active + .main-content {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
         /* Header Baru yang Lebih Menarik */
         header {
     position: relative;
@@ -677,6 +861,7 @@ header h1 {
         }
         
         .achievement-card, .organization-card {
+            margin: 100px;
             border: 1px solid #ddd;
             border-radius: 8px;
             padding: 20px;
@@ -864,29 +1049,7 @@ header h1 {
         font-size: 0.8rem;
     }
     
-    .social-links {
-        display: flex;
-        gap: 15px;
-        margin-bottom: 25px;
-    }
-    
-    .social-links a {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        background: rgba(255,255,255,0.1);
-        border-radius: 50%;
-        color: white;
-        font-size: 1.2rem;
-        transition: all 0.3s ease;
-    }
-    
-    .social-links a:hover {
-        background: #e74c3c;
-        transform: translateY(-5px);
-    }
+   
     
     .newsletter form {
         display: flex;
@@ -982,9 +1145,7 @@ header h1 {
             transform: translateX(-50%);
         }
         
-        .social-links {
-            justify-content: center;
-        }
+        
     }
         
         .close-btn {
@@ -1002,57 +1163,198 @@ header h1 {
         }
 
         /* CSS untuk Bagian Keterampilan */
+    .skills-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4e8eb 100%);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    padding: 25px;
+    margin: 30px auto; /* Perubahan di sini - margin auto untuk center */
+    overflow: hidden;
+    max-width: 1200px; /* Tambahkan max-width untuk konsistensi */
+    width: calc(100% - 4rem); /* Padding kiri-kanan */
+}
+
+/* Media query untuk tampilan mobile */
+@media (max-width: 768px) {
+    .skills-section {
+        width: calc(100% - 2rem); /* Kurangi padding di mobile */
+        padding: 15px;
+    }
+    
+    .skills-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .skill-toggle {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .skills-grid {
+        grid-template-columns: 1fr; /* Satu kolom di mobile */
+    }
+}
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 15px;
+    background: linear-gradient(to right, #4b6cb7, #182848);
+    color: white;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.section-header:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.section-header h2 {
+    margin: 0;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+}
+
+.section-header h2 i {
+    margin-right: 15px;
+}
+
+.animated-bounce {
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+    40% {transform: translateY(-10px);}
+    60% {transform: translateY(-5px);}
+}
+
+               [data-aos] {
+    opacity: 0;
+    transition-property: opacity, transform;
+}
+
+[data-aos].aos-animate {
+    opacity: 1;
+}
+
+[data-aos="fade-up"] {
+    transform: translateY(30px);
+}
+
+[data-aos="fade-up"].aos-animate {
+    transform: translateY(0);
+}
         .skills-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
+    display: flex;
+    justify-content: center;
+    margin: 25px 0;
+    gap: 15px;
+    flex-wrap: wrap; /* Tambahkan ini untuk responsif */
+}
 
-        .skill-toggle {
-            padding: 12px 25px;
-            background-color: #2c3e50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
+.skill-toggle {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 50px;
+    background: #e0e0e0;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+}
 
-        .skill-toggle:hover {
-            background-color: #34495e;
-            transform: translateY(-2px);
-        }
+.skill-toggle.active {
+    background: linear-gradient(to right, #4b6cb7, #182848);
+    color: white;
+    box-shadow: 0 4px 15px rgba(75, 108, 183, 0.4);
+}
 
-        .skill-toggle.active {
-            background-color: #e74c3c;
-        }
+.skill-toggle:hover:not(.active) {
+    background: #d0d0d0;
+}
 
-        .skill-content {
-            display: none;
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            animation: fadeIn 0.5s;
-        }
+.pulse {
+    animation: pulse 2s infinite;
+}
 
-        .skill-content.active {
-            display: block;
-        }
+@keyframes pulse {
+    0% {box-shadow: 0 0 0 0 rgba(75, 108, 183, 0.4);}
+    70% {box-shadow: 0 0 0 10px rgba(75, 108, 183, 0);}
+    100% {box-shadow: 0 0 0 0 rgba(75, 108, 183, 0);}
+}
 
-        .skill-content ul {
-            columns: 2;
-            column-gap: 30px;
-        }
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 10px;
+    width: 100%; /* Pastikan lebar penuh */
+}
 
-        .skill-content li {
-            margin-bottom: 10px;
-            break-inside: avoid;
-        }
+/* Perbaikan untuk kartu keterampilan */
+.skill-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    text-align: center;
+    margin: 0 auto; /* Center kartu jika perlu */
+    width: 100%; /* Pastikan lebar penuh */
+}
+
+.skill-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.skill-icon {
+    font-size: 2.5rem;
+    color: #4b6cb7;
+    margin-bottom: 15px;
+}
+
+.skill-card h3 {
+    margin: 10px 0;
+    color: #333;
+}
+
+.skill-card p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.skill-bar {
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 15px;
+}
+
+.skill-level {
+    height: 100%;
+    background: linear-gradient(to right, #4b6cb7, #182848);
+    border-radius: 4px;
+    transition: width 1.5s ease;
+}
+.skill-content {
+    display: none;
+}
+
+.skill-content.active {
+    display: block;
+}
         
         /* CSS tambahan untuk dropdown sections */
         .modern-header {
@@ -1218,7 +1520,9 @@ header h1 {
 /* Header Text Content */
 .header-text-content {
     max-width: 600px;
+    
 }
+
 
 .title-wrapper {
     margin-bottom: 20px;
@@ -1492,10 +1796,11 @@ header h1 {
 }
 
 .section-content.active {
-    max-height: 2000px; /* Adjust based on your content */
-    transition: max-height 0.5s ease-in, padding 0.3s ease;
+    max-height: 5000px; /* Atau nilai yang cukup besar */
+    transition: max-height 0.5s ease-in;
 }
- /* Tambahkan ini di bagian CSS Anda */
+
+ 
 
 /* Gradasi untuk section Tentang */
 #tentang {
@@ -1549,11 +1854,17 @@ section:hover {
     position: fixed;
     z-index: 2000;
     left: 0;
-    top: 0;
+    top: 
+    
+    
+    0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.9);
     overflow: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .modal-content {
@@ -1564,11 +1875,7 @@ section:hover {
     max-height: 80vh;
     object-fit: contain;
     animation: zoom 0.3s;
-}
-
-@keyframes zoom {
-    from {transform: scale(0.1)}
-    to {transform: scale(1)}
+    position: relative;
 }
 
 .close-modal {
@@ -1580,11 +1887,7 @@ section:hover {
     font-weight: bold;
     transition: 0.3s;
     cursor: pointer;
-}
-
-.close-modal:hover {
-    color: #e74c3c;
-    transform: rotate(90deg);
+    z-index: 2001;
 }
 
 /* Next & previous buttons */
@@ -1592,6 +1895,7 @@ section:hover {
     cursor: pointer;
     position: absolute;
     top: 50%;
+    transform: translateY(-50%);
     width: auto;
     padding: 16px;
     margin-top: -50px;
@@ -1603,7 +1907,25 @@ section:hover {
     user-select: none;
     -webkit-user-select: none;
     background-color: rgba(0, 0, 0, 0.5);
+     z-index: 2001;
 }
+@keyframes zoom {
+    from {transform: scale(0.1)}
+    to {transform: scale(1)}
+}
+@media (max-width: 768px) {
+    .modal-content {
+        max-width: 95%;
+        max-height: 95vh;
+    }
+}
+
+.close-modal:hover {
+    color: #e74c3c;
+    transform: rotate(90deg);
+}
+
+
 
 .modal-prev {
     left: 0;
@@ -1642,37 +1964,298 @@ section:hover {
     opacity: 0.8;
     transform: scale(1.02);
 } 
+/* Mobile Navigation */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #2c3e50;
+    z-index: 1000;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+}
+
+.mobile-nav-menu {
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mobile-nav-item {
+    flex: 1;
+    text-align: center;
+}
+
+.mobile-nav-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 5px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+}
+
+.mobile-nav-link i {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.mobile-nav-link.active {
+    color: #e74c3c;
+    background: rgba(255,255,255,0.1);
+}
+
+/* Hide sidebar toggle on mobile when mobile nav is shown */
+@media (max-width: 768px) {
+    .sidebar-toggle {
+        display: none;
+    }
+    
+    .mobile-nav {
+        display: block;
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding-bottom: 70px; /* Space for mobile nav */
+    }
+    
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+}
+/* Tambahkan di bagian CSS */
+.theme-switcher {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    z-index: 10;
+}
+
+#theme-toggle {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#theme-toggle:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(30deg);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .theme-switcher {
+        top: 20px;
+        right: 20px;
+    }
+}
+
+/* Perbesar lebar dan tinggi popup detail */
+.achievement-card, .organization-card {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    position: relative;
+    background: white;
+}
+/* Untuk tampilan mobile */
+@media (max-width: 768px) {
+    .achievement-images img, .organization-images img {
+        height: 150px;
+    }
+}
+
+
+
+.achievement-images img, .organization-images img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.achievement-images img:hover, .organization-images img:hover {
+    transform: scale(1.03);
+}
+
+/* Perbaiki tombol close */
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: #e74c3c;
+    color: white;
+    border: 5px;
+    padding: 8px 12px;
+   
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.close-btn:hover {
+    background: #c0392b;
+    transform: scale(1.1);
+}
+
+/* Responsive untuk mobile */
+@media (max-width: 768px) {
+    .achievement-card, .organization-card {
+        width: 95%;
+        padding: 20px;
+    }
+    
+    .achievement-images, .organization-images {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
+
+/* Tambahkan scroll jika konten terlalu panjang */
+.achievement-card, .organization-card {
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+/* Animasi untuk popup */
+.achievement-card, .organization-card {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
     </style>
+    
     
 </head>
 <body>
     <!-- Sidebar Toggle Button -->
     <div class="sidebar-toggle" id="sidebarToggle">
-        <i class="fas fa-bars"></i>
+    <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
     </div>
-    
-    <!-- Sidebar Navigation -->
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <h2>Abram Januar</h2>
-            <p>- Portofolio -</p>
+</div>
+
+<!-- Sidebar Navigation -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <div class="profile-mini">
+            <img src="img/fotodiri.jpg" alt="Abram Januar">
         </div>
-        <ul class="sidebar-menu">
-            <li><a href="#tentang" class="nav-link active"><i class="fa-solid fa-user"></i> Tentang</a></li>
-            <li><a href="#pendidikan" class="nav-link"><i class="fa-solid fa-graduation-cap"></i> Pendidikan</a></li>
-            <li><a href="#pencapaian" class="nav-link"><i class="fa-solid fa-trophy"></i> Pencapaian</a></li>
-            <li><a href="#organisasi" class="nav-link"><i class="fa-solid fa-users"></i> Organisasi</a></li>
-            <li><a href="#keterampilan" class="nav-link"><i class="fa-solid fa-laptop-code"></i> Keterampilan</a></li>
-            <li><a href="#kontak" class="nav-link"><i class="fa-solid fa-envelope"></i> Kontak</a></li>
-        </ul>
+        <h2>Abram Januar</h2>
+        <p>Mechatronics Engineering</p>
+        <div class="sidebar-divider"></div>
     </div>
     
-    <!-- Main Content -->
+    <ul class="sidebar-menu">
+        <li>
+            <a href="#tentang" class="nav-link active">
+                <div class="menu-icon">
+                    <i class="fa-solid fa-user"></i>
+                </div>
+                <span>Tentang Saya</span>
+                <div class="hover-effect"></div>
+            </a>
+        </li>
+        <li>
+            <a href="#pendidikan" class="nav-link">
+                <div class="menu-icon">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <span>Pendidikan</span>
+                <div class="hover-effect"></div>
+            </a>
+        </li>
+        <li>
+            <a href="#pencapaian" class="nav-link">
+                <div class="menu-icon">
+                    <i class="fa-solid fa-trophy"></i>
+                </div>
+                <span>Pencapaian</span>
+                <div class="hover-effect"></div>
+            </a>
+        </li>
+        <li>
+            <a href="#organisasi" class="nav-link">
+                <div class="menu-icon">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+                <span>Organisasi</span>
+                <div class="hover-effect"></div>
+            </a>
+        </li>
+        <li>
+            <a href="#keterampilan" class="nav-link">
+                <div class="menu-icon">
+                    <i class="fa-solid fa-laptop-code"></i>
+                </div>
+                <span>Keterampilan</span>
+                <div class="hover-effect"></div>
+            </a>
+        </li>
+        <li>
+            <a href="#kontak" class="nav-link">
+                <div class="menu-icon">
+                    <i class="fa-solid fa-envelope"></i>
+                </div>
+                <span>Kontak</span>
+                <div class="hover-effect"></div>
+            </a>
+        </li>
+    </ul>
+    
+    <div class="sidebar-footer">
+        <div class="social-links">
+            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        </div>
+        <p>© 2025 Abram Januar</p>
+    </div>
+</div>
+    
     <div class="main-content">
         <header class="modern-header">
             <!-- Background dengan gradient animasi -->
             <div class="animated-gradient"></div>
             <div class="particles" id="particles-js"></div>
+            
             
             <!-- Floating circles decoration -->
             <div class="floating-circles">
@@ -1688,8 +2271,7 @@ section:hover {
                     <div class="profile-image-wrapper">
                         <img src="img/fotodiri.jpg" alt="Abram Januar" class="profile-image">
                         <div class="image-overlay"></div>
-                        <div class="tech-badge">
-                            <i class="fas fa-robot"></i>
+                        <div>
                         </div>
                     </div>
                     <div class="profile-frame-decoration"></div>
@@ -1703,7 +2285,7 @@ section:hover {
                             <span class="title-part highlight">JANUAR</span>
                         </h1>
                         <div class="title-line"></div>
-                    </div>
+                   
                     
                     <h2 class="subtitle typing-animation">Mechatronics Engineering Student</h2>
                     
@@ -1730,18 +2312,22 @@ section:hover {
         <section id="tentang">
             <div class="section-header" onclick="toggleSection('tentang-content')">
                 <h2>Tentang Saya</h2>
-                <i class="fas fa-chevron-down"></i>
+                <i class="fas animated-bounce fa-chevron-down"></i>
             </div>
             <div id="tentang-content" class="section-content active">
-                <p>Halo! Saya Abram Januar, mahasiswa program studi Mekatronika di Politeknik Astra. Saya memiliki ketertarikan kuat dalam bidang Machining, Electrical, dan Programming. Kombinasi dari minat ini mendorong saya untuk terus menggali pengetahuan dan mengembangkan keterampilan lintas disiplin.</p>
-                <p>Saya dikenal sebagai pribadi yang penasaran, berorientasi pada solusi, dan selalu bersemangat mempelajari hal-hal baru, terutama yang berkaitan dengan teknologi dan otomasi. Dalam setiap proyek atau kegiatan, saya berusaha memberikan kontribusi terbaik dan terbuka terhadap tantangan baru yang dapat memperkaya pengalaman saya.</p>
+                <p>Halo Saya Abram Januar, Seorang Mahasiswa Mekatronika di Politeknik Astra dengan passion di bidang Machining, Electrical, dan Programming. Dengan ketiga bidang ini saya percaya akan membuka pelaung besar dalam pengembangan teknologi otomasi dan sistem invasi.</p>
+                <p>Dengan rasa ingin tahu yang tinggi tehadap hal-hal teknis, terutama yang berkaitan dengan Microcontroller, Kontrol Industri, dan Pemrogrman database. Saya menikmati proses memecahkan masalah dengan kreatif, baik dalam mendesain komponen mekanik, merancang sistem kelistrikan, dan membuat kode untuk kontrol mesin.</p>
+                <p>Selama berkuliah, saya aktif dalam mengikuti berbagai kompetisi internal maupun eksternal kampus, beberapa pencapaian pun berhasil saya dapatkan mulai dari lomba yang diselengarakan kampus, nasioanl, dan internasional. Saya juga turut aktif dalam mengikuti organisasi yang ada, ini memperluas wawasan saya dalam hal bersosial. Hal-hal tersebut saya lakukan untuk mengasah kemampuan teknis dan soft skill saya, dan juga karena saya menyukai hal baru dan mencoba untuk terbuka atas setiap tantangan yang ada. Karena setiap perjuangan pasti membuahkan hasil.</p>
+                <p>Dalam hal akdemik, saya mengerjakan setiap tugas yang ada dengan baik dan menjalankan projek dengan perhatian lebih, hal ini membuahkan hasil yang sepadan dengan hasil IPK yang memuaskan. Saya senang untuk dapat berdiskusi dengan sesama mengenai perkembangan teknologi, hal ini mendorong saya untuk melakukan projek-projek kecil bersama teman-teman saya, dengan menggunakan barang barang elektro yang ada di pasaran saya membuat projek pembacaan kondisi aki motor, dan baterai mobil.</p>
+                <p>Saya selalu berusaha memberikan yang terbaik dalam setiap kesempatan, baik dalam tim maupun secara mandiri. Jika Anda memiliki proyek menarik atau ingin berkolaborasi, jangan ragu untuk menghubungi saya! </p>
+            
             </div>
         </section>
     
     <section id="pendidikan">
         <div class="section-header" onclick="toggleSection('pendidikan-content')">
             <h2>Pendidikan</h2>
-            <i class="fas fa-chevron-down"></i>
+            <i class="fas animated-bounce fa-chevron-down"></i>
         </div>
         <div id="pendidikan-content" class="section-content active">
             <div class="timeline">
@@ -1772,7 +2358,7 @@ section:hover {
     <section id="pencapaian">
         <div class="section-header" onclick="toggleSection('pencapaian-content')">
             <h2>Pencapaian</h2>
-            <i class="fas fa-chevron-down"></i>
+            <i class="fas animated-bounce fa-chevron-down"></i>
         </div>
         <div id="pencapaian-content" class="section-content active">
             <div class="achievements-carousel" id="main-carousel">
@@ -1789,7 +2375,7 @@ section:hover {
                 <!-- Pencapaian 2 - AISEEF Competition -->
                 <div class="achievement-slide">
                     <div class="achievement-preview" onclick="showAchievementDetail(2)">
-                        <img src="img/aiseef_utama.jpg" alt="AISEEF Competition">
+                        <img src="img/aiseef_utama.JPG" alt="AISEEF Competition">
                         <h3 class="achievement-title">AISEEF Competition</h3>
                     </div>
                 </div>
@@ -1825,12 +2411,13 @@ section:hover {
             <button class="close-btn" onclick="hideAllAchievementDetails()">× Tutup</button>
             <h3>Kontes Robot Indonesia</h3>
             <div class="achievement-images">
-                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.18_bd2c341e.jpg" alt="Robot 1">
-                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.18_8c43d7dc.jpg" alt="Robot 2">
-                <img src="img/KRI&cherimek.JPG" alt="Robot 3">
-                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.19_7bf28eed.jpg" alt="Robot 4">
-                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.19_b8018fc9.jpg" alt="Robot 5">
-                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.21_b2b25c9f.jpg" alt="Robot 6">
+                <img src="imgkri/kri_utama2.jpg" alt="Tim Kri Astratech">
+                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.18_bd2c341e.jpg" alt="Arena Kri dari Tribun ">
+                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.18_8c43d7dc.jpg" alt="Kantin Kri">
+                <img src="img/KRI&cherimek.JPG" alt="Tim submarine dan cherimek">
+                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.19_7bf28eed.jpg" alt="Arena Kri dari tribun 2">
+                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.19_b8018fc9.jpg" alt="Arena Kri lomba Abu">
+                <img src="imgkri/WhatsApp Image 2025-05-05 at 20.36.21_b2b25c9f.jpg" alt="Gedung edutorium ">
             </div>
             <p><strong>Deskripsi:</strong> Kompetisi robot nasional yang diadakan setiap tahun oleh Kementerian Pendidikan dan Kebudayaan Republik Indonesia. Kompetisi ini menantang peserta untuk membuat robot yang dapat menyelesaikan berbagai tugas kompleks dalam waktu tertentu.</p>
             <p><strong>Tahun:</strong> 2024</p>
@@ -1845,11 +2432,12 @@ section:hover {
             <button class="close-btn" onclick="hideAllAchievementDetails()">× Tutup</button>
             <h3>AISEEF Competition</h3>
             <div class="achievement-images">
-                <img src="imgaisef/aiseef_2.jpg" alt="AISEEF 1">
-                <img src="imgaisef/aiseef3.jpg" alt="AISEEF 2">
-                <img src="imgaisef/aiseef4.jpg" alt="AISEEF 3">
-                <img src="imgaisef/aiseef5.jpg" alt="AISEEF 4">
-                <img src="imgaisef/aiseef_sertif.png" alt="AISEEF 5">
+                <img src="img/aiseef_utama.JPG" alt="foto projek bulldozer kampus ">
+                <img src="imgaisef/aiseef_2.jpg" alt="tim Aiseef">
+                <img src="imgaisef/aiseef3.jpg" alt="Presentasi">
+                <img src="imgaisef/aiseef4.jpg" alt="Project U-wise">
+                <img src="imgaisef/aiseef5.jpg" alt="foto pra presentasi">
+                <img src="imgaisef/aiseef_sertif.png" alt="sertifikat">
             </div>
             <p><strong>Deskripsi:</strong> Asean Innovative Science Environmental and Entrepreneur Fair (AISEEF) adalah kompetisi internasional di bidang sains, teknologi, dan kewirausahaan yang diadakan di Semarang, Indonesia.</p>
             <p><strong>Tahun:</strong> 2024</p>
@@ -1864,9 +2452,10 @@ section:hover {
             <button class="close-btn" onclick="hideAllAchievementDetails()">× Tutup</button>
             <h3>PLC Competition</h3>
             <div class="achievement-images">
-                <img src="imgted/ted3.jpg" alt="PLC 1">
-                <img src="imgted/ted_2.jpg" alt="PLC 2">
-                <img src="imgted/TED_sertif.png" alt="PLC 3">
+                <img src="img/IMG-20250505-WA0052[1].JPG" alt="Penerimaan Piala dan piagam">
+                <img src="imgted/ted3.jpg" alt="foto didepan taman Sekolah Vokasi UGM ">
+                <img src="imgted/ted_2.jpg" alt="foto bersama penerimaan piala dan piagam">
+                <img src="imgted/TED_sertif.png" alt="Sertifikat">
             </div>
             <p><strong>Deskripsi:</strong> Lomba pemrograman PLC - TED yang diselenggarakan oleh Sekolah Vokasi UGM/p>
             <p><strong>Tahun:</strong> 2024</p>
@@ -1881,10 +2470,11 @@ section:hover {
             <button class="close-btn" onclick="hideAllAchievementDetails()">× Tutup</button>
             <h3>Agridation Day</h3>
             <div class="achievement-images">
-                <img src="imgagri/agri_1.jpg" alt="Agridation 1">
-                <img src="imgagri/agri_2.jpg" alt="Agridation 2">
-                <img src="imgagri/design.png" alt="Agridation 3">
-                <img src="imgagri/agri_sertif.png" alt="Agridation 4">
+                <img src="imgkri/agridation_utama.jpg" alt="Tim scorpio">
+                <img src="imgagri/agri_1.jpg" alt="foto bersama di didepan alun alun">
+                <img src="imgagri/agri_2.jpg" alt="foto bersama panitia dan juri">
+                <img src="imgagri/design.png" alt="foto projek sistem irigasi air">
+                <img src="imgagri/agri_sertif.png" alt="sertifikat">
             </div>
             <p><strong>Deskripsi:</strong> Ajang presentasi proyek teknologi pertanian inovatif yang diselenggarakan oleh Kementerian Pertanian bekerja sama dengan beberapa universitas ternama.</p>
             <p><strong>Tahun:</strong> 2024</p>
@@ -1898,7 +2488,7 @@ section:hover {
     <section id="organisasi">
         <div class="section-header" onclick="toggleSection('organisasi-content')">
             <h2>Organisasi</h2>
-            <i class="fas fa-chevron-down"></i>
+            <i class="fas animated-bounce fa-chevron-down"></i>
         </div>
     <div id="organisasi-content" class="section-content active">
         <div class="organizations-carousel" id="org-carousel">
@@ -1943,12 +2533,13 @@ section:hover {
             <button class="close-btn" onclick="hideAllOrganizationDetails()">× Tutup</button>
             <h3>Himma Mekatronika</h3>
             <div class="organization-images">
-                <img src="img/himma_angkatan.jpg" alt="Himma 1">
-                <img src="img/himma_makrab.jpg" alt="Himma 2">
-                <img src="img/himma_band.jpg" alt="Himma 3">
-                <img src="img/Himma_bukber.jpg" alt="Himma 4">
-                <img src="img/himma-pilih.jpg" alt="Himma 5">
-                <img src="img/himma_makrab2.jpg" alt="Himma 6">
+                <img src="img/himma.jpg" alt="MK 22 in Makrab 2024">
+                <img src="img/himma_angkatan.jpg" alt="MK 22">
+                <img src="img/himma_makrab.jpg" alt="malam keakraban">
+                <img src="img/himma_band.jpg" alt="Mek Band">
+                <img src="img/Himma_bukber.jpg" alt="Buka bersama Mekatronika">
+                <img src="img/himma-pilih.jpg" alt="Debat Calon Ketua Himma 2023">
+                <img src="img/himma_makrab2.jpg" alt="Makrab 2023">
             </div>
             <p><strong>Deskripsi:</strong> Himpunan Mahasiswa Mekatronika Politeknik Astra adalah organisasi kemahasiswaan yang menaungi seluruh mahasiswa program studi Mekatronika.</p>
             <p><strong>Periode:</strong> 2022 - 2024</p>
@@ -1972,11 +2563,12 @@ section:hover {
             <button class="close-btn" onclick="hideAllOrganizationDetails()">× Tutup</button>
             <h3>KMK Astratech</h3>
             <div class="organization-images">
-                <img src="img/KMK_band.JPG" alt="KMK 1">
-                <img src="img/KMK_Paskah.JPG" alt="KMK 2">
-                <img src="img/DSC02305.JPG" alt="KMK 3">
-                <img src="img/DSC02426.JPG" alt="KMK 4">
-                <img src="img/IMG_0799.JPG" alt="KMK 5">
+                <img src="img/KMK.JPG" alt="Natal Astratech 2023">
+                <img src="img/KMK_band.JPG" alt="Band Natal Astratech 2023">
+                <img src="img/KMK_Paskah.JPG" alt="Paskah Astratech 2024">
+                <img src="img/DSC02305.JPG" alt="Retreat KMK 2024">
+                <img src="img/DSC02426.JPG" alt="Ibadah bersama di Paroki sahabat Yesus">
+                <img src="img/IMG_0799.JPG" alt="Materi bersama bapak Tony Harley Silalahi">
             </div>
             <p><strong>Deskripsi:</strong> Keluarga Mahasiswa Kristiani Astratech adalah wadah bagi mahasiswa Kristiani Politeknik Astra untuk berkumpul dan beribadah.</p>
             <p><strong>Periode:</strong> 2023 - 2024</p>
@@ -2000,12 +2592,12 @@ section:hover {
             <button class="close-btn" onclick="hideAllOrganizationDetails()">× Tutup</button>
             <h3>Vopma</h3>
             <div class="organization-images">
-                <img src="img/vopma_wisuda2.jpg" alt="Vopma 1" >
-                <img src="img/Vopma_Wisuda.jpg" alt="Vopma 2">
-                <img src="img/vopmas_parent2.jpg" alt="Vopma 3" >
-                <img src="img/Vopma_17.jpg" alt="Vopma 4">
-                <img src="img/Vopma_fotbar.JPG" alt="Vopma 5" >
-                <img src="img/Vopma_parent3.jpg" alt="Vopma 6" >
+                <img src="img/Vopma_Wisuda.jpg" alt="Wisuda XXIV Politeknik Astra" >
+                <img src="img/vopma_wisuda2.jpg" alt="Wisuda XXV Politeknik Astra" >
+                <img src="img/vopmas_parent2.jpg" alt="17 Agustus 2024" >
+                <img src="img/Vopma_17.jpg" alt="17 Agustus 2023">
+                <img src="img/Vopma_fotbar.JPG" alt="Foto Kepengurusan" >
+                <img src="img/Vopma_parent3.jpg" alt="Parent Gathering" >
 
             </div>
             <p><strong>Deskripsi:</strong> Voice of Politechnic Manufaktur Astra adalah paduan suara mahasiswa vokasi Astra yang fokus pada pengembangan suara, Yang memiliki keterlibatan dalam mengisi acara 17 Agustus, Parent day, Wisuda, Penyambutan tamu dan lainnya .</p>
@@ -2025,59 +2617,167 @@ section:hover {
             </ul>
         </div>
     </section>
+    <section id="keterampilan" class="skills-section">
+    <div class="section-header" onclick="toggleSection('keterampilan-content')">
+        <h2> Keterampilan</h2>
+        <i class="fas animated-bounce fa-chevron-down animated-bounce"></i>
+    </div>
     
-    <section id="keterampilan">
-        <div class="section-header" onclick="toggleSection('keterampilan-content')">
-            <h2>Keterampilan</h2>
-            <i class="fas fa-chevron-down"></i>
-        </div>
     <div id="keterampilan-content" class="section-content active">
-        
         <div class="skills-container">
-            <button class="skill-toggle active" onclick="showSkillContent('softskill')">Softskill</button>
-            <button class="skill-toggle" onclick="showSkillContent('hardskill')">Hardskill</button>
+            <button class="skill-toggle active pulse" onclick="showSkillContent('softskill')">
+                <i class="fas fa-brain"></i> Soft Skills
+            </button>
+            <button class="skill-toggle" onclick="showSkillContent('hardskill')">
+                <i class="fas fa-microchip"></i> Hard Skills
+            </button>
         </div>
         
         <div id="softskill-content" class="skill-content active">
-            <h3>Softskill</h3>
-            <ul>
-                <li><i class="fas fa-users"></i> Kerja Tim</li>
-                <li><i class="fas fa-comments"></i> Komunikasi Efektif</li>
-                <li><i class="fas fa-lightbulb"></i> Pemecahan Masalah</li>
-                <li><i class="fas fa-clock"></i> Manajemen Waktu</li>
-                <li><i class="fas fa-brain"></i> Berpikir Kritis</li>
-                <li><i class="fas fa-project-diagram"></i> Manajemen Proyek</li>
-                <li><i class="fas fa-chalkboard-teacher"></i> Presentasi</li>
-            </ul>
+            <div class="skills-grid">
+                <div class="skill-card" data-aos="fade-up">
+                    <div class="skill-icon"><i class="fas fa-users"></i></div>
+                    <h3>Kerja Tim</h3>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 90%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="skill-icon"><i class="fas fa-comments"></i></div>
+                    <h3>Komunikasi Efektif</h3>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 85%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="skill-icon"><i class="fas fa-lightbulb"></i></div>
+                    <h3>Pemecahan Masalah</h3>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 95%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="skill-icon"><i class="fas fa-clock"></i></div>
+                    <h3>Manajemen Waktu</h3>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 88%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="skill-icon"><i class="fas fa-brain"></i></div>
+                    <h3>Berpikir Kritis</h3>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 92%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="skill-icon"><i class="fas fa-project-diagram"></i></div>
+                    <h3>Manajemen Proyek</h3>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 87%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="skill-icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h3>Presentasi</h3>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 83%"></div>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div id="hardskill-content" class="skill-content">
-            <h3>Hardskill</h3>
-            <ul>
-                <li><i class="fas fa-microchip"></i> Pemrograman PLC (Ladder Diagram, Structured Text)</li>
-                <li><i class="fas fa-cube"></i> Desain Mekanik (AutoCAD, SolidWorks)</li>
-                <li><i class="fas fa-robot"></i> Pemrograman Mikrokontroler (Arduino, ESP32)</li>
-                <li><i class="fas fa-network-wired"></i> Jaringan Industri (Modbus, Profibus)</li>
-                <li><i class="fas fa-code"></i> Pemrograman C++</li>
-                <li><i class="fas fa-bolt"></i> Sistem Kontrol Elektrik</li>
-                <li><i class="fas fa-cogs"></i> Sistem Mekanik</li>
-                <li><i class="fas fa-industry"></i> Otomasi Industri</li>
-            </ul>
+            <div class="skills-grid">
+                <div class="skill-card" data-aos="fade-up">
+                    <div class="skill-icon"><i class="fas fa-microchip"></i></div>
+                    <h3>Pemrograman PLC</h3>
+                    <p>Ladder Diagram, Structured Text</p>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 95%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="skill-icon"><i class="fas fa-cube"></i></div>
+                    <h3>Desain Mekanik</h3>
+                    <p>AutoCAD, SolidWorks</p>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 90%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="skill-icon"><i class="fas fa-robot"></i></div>
+                    <h3>Mikrokontroler</h3>
+                    <p>Arduino, ESP32</p>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 88%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="skill-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>Jaringan Industri</h3>
+                    <p>Modbus, Profibus</p>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 85%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="skill-icon"><i class="fas fa-code"></i></div>
+                    <h3>Pemrograman C++</h3>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 80%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="skill-icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Sistem Kontrol Elektrik</h3>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 92%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="skill-icon"><i class="fas fa-cogs"></i></div>
+                    <h3>Sistem Mekanik</h3>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 89%"></div>
+                    </div>
+                </div>
+                
+                <div class="skill-card" data-aos="fade-up" data-aos-delay="700">
+                    <div class="skill-icon"><i class="fas fa-industry"></i></div>
+                    <h3>Otomasi Industri</h3>
+                    <div class="skill-bar">
+                        <div class="skill-level" style="width: 94%"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    </section>
+</section>
     
     <section id="kontak">
         <div class="section-header" onclick="toggleSection('kontak-content')">
             <h2>Kontak</h2>
-            <i class="fas fa-chevron-down"></i>
+            <i class="fas animated-bounce fa-chevron-down"></i>
         </div>
-    <div id="kontak-content" class="section-content active">
-        <p>Email: abramjanuar16@gmail.com</p>
-        <p>Instagram: abram_jvi</p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/abram-januar-ab8aa02b2" target="_blank">linkedin.com/in/abram-januar-ab8aa02b2</a></p>
-        <p>GitHub: <a href="#" target="_blank">github.com/Abramjvi</a></p>
-    </div>
+        <div id="kontak-content" class="section-content active">
+            <p>Email: abramjanuar16@gmail.com</p>
+            <p>Instagram: <a href="https://instagram.com/abram_jvi" target="_blank">@abram_jvi</a></p>
+            <p>LinkedIn: <a href="https://www.linkedin.com/in/abram-januar-ab8aa02b2" target="_blank">linkedin.com/in/abram-januar-ab8aa02b2</a></p>
+            <p>GitHub: <a href="https://github.com/Abramjvi" target="_blank">github.com/Abramjvi</a></p>
+        </div>
     </section>
     
     <footer>
@@ -2104,12 +2804,11 @@ section:hover {
                 
                 <div class="footer-section social">
                     <h3>Hubungi Saya</h3>
-                    <div class="social-links">
-                        <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <div class="social-icons">
+                        <a href="https://linkedin.com/in/abram-januar-ab8aa02b2" target="_blank"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/Abramjvi" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://instagram.com/abram_jvi" target="_blank"><i class="fab fa-instagram"></i></a>
                         <a href="mailto:abramjanuar16@gmail.com"><i class="fas fa-envelope"></i></a>
-                        <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
                     </div>
                     
                 </div>
@@ -2123,8 +2822,115 @@ section:hover {
             </div>
         </div>
     </footer>
+    <!-- Mobile Navigation -->
+<nav class="mobile-nav">
+    <ul class="mobile-nav-menu">
+        <li class="mobile-nav-item">
+            <a href="#tentang" class="mobile-nav-link">
+                <i class="fas fa-user"></i>
+                <span>Tentang</span>
+            </a>
+        </li>
+        <li class="mobile-nav-item">
+            <a href="#pendidikan" class="mobile-nav-link">
+                <i class="fas fa-graduation-cap"></i>
+                <span>Pendidikan</span>
+            </a>
+        </li>
+        <li class="mobile-nav-item">
+            <a href="#pencapaian" class="mobile-nav-link">
+                <i class="fas fa-trophy"></i>
+                <span>Pencapaian</span>
+            </a>
+        </li>
+        <li class="mobile-nav-item">
+            <a href="#organisasi" class="mobile-nav-link">
+                <i class="fas fa-users"></i>
+                <span>Organisasi</span>
+            </a>
+        </li>
+        <li class="mobile-nav-item">
+            <a href="#keterampilan" class="mobile-nav-link">
+                <i class="fas fa-laptop-code"></i>
+                <span>Keterampilan</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    
+    // Toggle sidebar
+    sidebarToggle.addEventListener('click', function() {
+        sidebar.classList.toggle('active');
+    });
+    
+    // Close sidebar when clicking outside
+    document.addEventListener('click', function(event) {
+        if (!sidebar.contains(event.target) && !sidebarToggle.contains(event.target)) {
+            sidebar.classList.remove('active');
+        }
+    });
+    
+    // Update active link
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            navLinks.forEach(l => l.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+});
+</script>
+<script>
+// Fungsi untuk toggle section
+function toggleSection(sectionId) {
+    const section = document.getElementById(sectionId);
+    section.classList.toggle('active');
+    
+    const icon = section.previousElementSibling.querySelector('i.fa-chevron-down');
+    icon.classList.toggle('rotate');
+}
+
+// Fungsi untuk toggle antara softskill dan hardskill
+function showSkillContent(skillType) {
+    // Sembunyikan semua konten skill
+    document.querySelectorAll('.skill-content').forEach(content => {
+        content.classList.remove('active');
+    });
+    
+    // Tampilkan konten yang dipilih
+    document.getElementById(`${skillType}-content`).classList.add('active');
+    
+    // Update tombol toggle
+    document.querySelectorAll('.skill-toggle').forEach(button => {
+        button.classList.remove('active', 'pulse');
+    });
+    
+    const activeButton = document.querySelector(`.skill-toggle[onclick="showSkillContent('${skillType}')"]`);
+    activeButton.classList.add('active', 'pulse');
+}
+
+// Inisialisasi - pastikan hanya softskill yang aktif pertama kali
+document.addEventListener('DOMContentLoaded', function() {
+    showSkillContent('softskill'); // Set default ke softskill
+    
+    // Animasi kartu skill
+    const skillCards = document.querySelectorAll('[data-aos]');
+    skillCards.forEach((card, index) => {
+        setTimeout(() => {
+            card.classList.add('aos-animate');
+        }, index * 100);
+    });
+});
+
+showSkillContent('softskill'); // Set default ke softskill
+</script>
 
     <script>
+
               function toggleSection(contentId) {
             const contentElement = document.getElementById(contentId);
             const headerElement = contentElement.previousElementSibling;
@@ -2270,23 +3076,7 @@ section:hover {
                 card.classList.remove('active');
             });
         }
-        
-        // Fungsi untuk menampilkan konten keterampilan
-        function showSkillContent(skillType) {
-            // Sembunyikan semua konten keterampilan
-            document.querySelectorAll('.skill-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Nonaktifkan semua tombol
-            document.querySelectorAll('.skill-toggle').forEach(button => {
-                button.classList.remove('active');
-            });
-            
-            // Tampilkan konten yang dipilih dan aktifkan tombolnya
-            document.getElementById(`${skillType}-content`).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
+      
         
         // Otomatis geser slide pencapaian setiap 8 detik
         setInterval(() => {
@@ -2450,23 +3240,85 @@ section:hover {
             }
         }
     
-        // Initialize all sections to be closed except the first one
-        document.addEventListener('DOMContentLoaded', function() {
-            const sections = document.querySelectorAll('.section-content');
-            sections.forEach((section, index) => {
-                if (index !== 0) { // Keep first section open, close others
-                    section.classList.remove('active');
-                    const icon = section.previousElementSibling.querySelector('i');
-                    icon.classList.remove('fa-chevron-up');
-                    icon.classList.add('fa-chevron-down');
-                }
-            });
-        });
+      document.addEventListener('DOMContentLoaded', function() {
+    // Buka semua section
+    const sections = document.querySelectorAll('.section-content');
+    sections.forEach(section => {
+        section.classList.add('active');
+        const icon = section.previousElementSibling.querySelector('i');
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-up');
+    });
+    
+    // Inisialisasi lainnya...
+});
     
         // Rest of your existing JavaScript code...
         // [Keep all your existing carousel and other functionality code]
     </script>
+<style>
+    .modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.9);
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
+.modal-content {
+  max-width: 100vw;
+  max-height: 90vh;
+  object-fit: contain;
+  margin: auto;
+}
+
+.modal-caption {
+  color: #fff;
+  text-align: center;
+  padding: 10px 20px;
+  font-size: 16px;
+  max-width: 90vw;
+  word-wrap: break-word;
+}
+
+.close-modal {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+.modal-nav {
+  position: absolute;
+  top: 50%;
+  font-size: 40px;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  user-select: none;
+  z-index: 10000;
+}
+
+.modal-prev {
+  left: 10px;
+}
+
+.modal-next {
+  right: 10px;
+}
+
+</style>
       <!-- The Modal -->
 <div id="imageModal" class="modal">
     <span class="close-modal" onclick="closeModal()">&times;</span>
@@ -2487,9 +3339,12 @@ section:hover {
         const modalImg = document.getElementById("modalImage");
         const captionText = document.getElementById("caption");
         
-        modal.style.display = "block";
+        modal.style.display = "flex";
         modalImg.src = currentImages[currentImageIndex].src;
         captionText.innerHTML = currentImages[currentImageIndex].alt || "";
+        modalImg.onload = function() {
+
+        };
     }
     
     // Close the modal
@@ -2543,19 +3398,55 @@ section:hover {
             };
         });
         
-        // Also make carousel preview images clickable
-        document.querySelectorAll('.achievement-preview img, .organization-preview img').forEach(img => {
-            img.classList.add('clickable-image');
-            img.onclick = function(e) {
-                e.stopPropagation(); // Prevent triggering the achievement detail
-                const container = this.closest('.achievement-slide, .organization-slide');
-                const images = [this];
-                openModal(images, 0);
-            };
+       
+    });
+    // Mobile nav active state
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+    const sections = document.querySelectorAll('section');
+    
+    function setActiveLink() {
+        let index = sections.length;
+        
+        // Find which section is currently in view
+        while(--index && window.scrollY + 100 < sections[index].offsetTop) {}
+        
+        // Remove active class from all links
+        mobileLinks.forEach(link => link.classList.remove('active'));
+        
+        // Add active class to corresponding link
+        if (mobileLinks[index]) {
+            mobileLinks[index].classList.add('active');
+        }
+    }
+    
+    // Set active link on scroll
+    window.addEventListener('scroll', setActiveLink);
+    
+    // Set initial active link
+    setActiveLink();
+    
+    // Smooth scroll for mobile links
+    mobileLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href');
+            const targetSection = document.querySelector(targetId);
+            
+            if (targetSection) {
+                window.scrollTo({
+                    top: targetSection.offsetTop,
+                    behavior: 'smooth'
+                });
+            }
         });
     });
-</script>
+});
 
+
+</script>
 </div>
+
+
 </body>
 </html>

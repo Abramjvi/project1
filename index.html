@@ -590,6 +590,25 @@
     overflow: hidden;
 }
 
+header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 1) 10%,        
+    rgba(0, 0, 0, 1) 80px,     
+    rgba(0, 0, 0, 0) 350px      
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+
+
 .particles {
     position: absolute;
     width: 100%;
@@ -1436,6 +1455,8 @@ header h1 {
 }
 
 .header-container {
+     /* position: relative; */
+  /* z-index: 2; */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1444,12 +1465,13 @@ header h1 {
     gap: 50px;
 }
 
+
+
 /* Profile Frame Styles */
 .profile-frame {
-    position: relative;
-    width: 350px;
-    height: 350px;
-    flex-shrink: 0;
+    /* position: relative; */
+    width: 550px;
+    height: 550px;
 }
 
 .profile-image-wrapper {
@@ -1458,7 +1480,6 @@ header h1 {
     height: 100%;
     border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.3);
     transform-style: preserve-3d;
     perspective: 1000px;
 }
@@ -1471,12 +1492,12 @@ header h1 {
 }
 
 .image-overlay {
-    position: absolute;
+    /* position: absolute; */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to top, rgba(44, 62, 80, 0.7) 0%, transparent 50%);
+    /* background: linear-gradient(to top, rgba(44, 62, 80, 0.7) 0%, transparent 50%); */
 }
 
 .tech-badge {
@@ -2250,7 +2271,6 @@ section:hover {
     </div>
 </div>
     
-    <!-- Main Content -->
     <div class="main-content">
         <header class="modern-header">
             <!-- Background dengan gradient animasi -->
@@ -2267,10 +2287,9 @@ section:hover {
             
             <!-- Container utama -->
             <div class="header-container">
-                <!-- Foto profil dengan frame modern -->
                 <div class="profile-frame">
                     <div class="profile-image-wrapper">
-                        <img src="img/fotodiri.jpg" alt="Abram Januar" class="profile-image">
+                        <img src="img/bram.png" alt="Abram Januar" class="profile-image">
                         <div class="image-overlay"></div>
                         <div>
                         </div>
