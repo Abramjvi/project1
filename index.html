@@ -2424,9 +2424,8 @@ section:hover {
             <div class="col-md-10 text-center pt-5">
                 <!-- Profile Image -->
                 <div class="profile-circle mb-4">
-                    <a href="#tentang"></a>
-                    <img src="img/bram.png" alt="Abram Januar" class="profile-image">
-                </div>
+    <img src="img/bram.png" alt="Abram Januar" class="profile-image" id="profileImage">
+</div>
                 
                 <!-- Name and Title -->
                 <h1 class="site-heading site-animate">Hello, I'm <strong class="d-block">Abram Januar</strong></h1>
@@ -2442,6 +2441,9 @@ section:hover {
     </a>
 </header>
 
+        
+      
+        
         <section id="tentang">
             <div class="section-header" onclick="toggleSection('tentang-content')">
                 <h2>Tentang Saya</h2>
@@ -2495,7 +2497,6 @@ section:hover {
             <div class="achievements-carousel" id="main-carousel">
                 <button class="carousel-btn prev" onclick="moveAchievementSlide(-1)">&#10094;</button>
                 <div class="achievements-container">
-                    
                 <!-- Pencapaian 1 - Kontes Robot Indonesia -->
                 <div class="achievement-slide">
                     <div class="achievement-preview" onclick="showAchievementDetail(1)">
@@ -2990,6 +2991,7 @@ section:hover {
     </ul>
 </nav>
 <script>
+    
 document.addEventListener('DOMContentLoaded', function() {
     const sidebar = document.getElementById('sidebar');
     const sidebarToggle = document.getElementById('sidebarToggle');
@@ -3348,6 +3350,7 @@ showSkillContent('softskill'); // Set default ke softskill
         });
     </script>
     <script>
+        
         // Function to toggle section content
         function toggleSection(contentId) {
             const contentElement = document.getElementById(contentId);
@@ -3385,8 +3388,7 @@ showSkillContent('softskill'); // Set default ke softskill
     // Inisialisasi lainnya...
 });
     
-        // Rest of your existing JavaScript code...
-        // [Keep all your existing carousel and other functionality code]
+      
     </script>
 <style>
     .modal {
@@ -3574,33 +3576,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-// Tambahkan script ini di bagian script Anda
-document.addEventListener('DOMContentLoaded', function() {
-    const profileImage = document.querySelector('.profile-circle img');
-    if (profileImage) {
-        profileImage.addEventListener('click', function() {
-            // Scroll ke bagian tentang saya
-            document.querySelector('#tentang').scrollIntoView({
-                behavior: 'smooth'
-            });
-            
-            // Jika menggunakan sidebar, aktifkan bagian tentang saya
-            const tentangLink = document.querySelector('a[href="#tentang"]');
-            if (tentangLink) {
-                // Hapus active dari semua link
-                document.querySelectorAll('.nav-link').forEach(link => {
-                    link.classList.remove('active');
-                });
-                
-                // Tambahkan active ke link tentang saya
-                tentangLink.classList.add('active');
-            }
-        });
-        
-        // Tambahkan cursor pointer sebagai indikator bisa diklik
-        profileImage.style.cursor = 'pointer';
-    }
-});
+
 </script>
 </div>
 </body>
