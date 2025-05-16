@@ -2424,6 +2424,7 @@ section:hover {
             <div class="col-md-10 text-center pt-5">
                 <!-- Profile Image -->
                 <div class="profile-circle mb-4">
+                    <a href="#tentang"></a>
                     <img src="img/bram.png" alt="Abram Januar" class="profile-image">
                 </div>
                 
@@ -3574,6 +3575,33 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+});
+// Tambahkan script ini di bagian script Anda
+document.addEventListener('DOMContentLoaded', function() {
+    const profileImage = document.querySelector('.profile-circle img');
+    if (profileImage) {
+        profileImage.addEventListener('click', function() {
+            // Scroll ke bagian tentang saya
+            document.querySelector('#tentang').scrollIntoView({
+                behavior: 'smooth'
+            });
+            
+            // Jika menggunakan sidebar, aktifkan bagian tentang saya
+            const tentangLink = document.querySelector('a[href="#tentang"]');
+            if (tentangLink) {
+                // Hapus active dari semua link
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                
+                // Tambahkan active ke link tentang saya
+                tentangLink.classList.add('active');
+            }
+        });
+        
+        // Tambahkan cursor pointer sebagai indikator bisa diklik
+        profileImage.style.cursor = 'pointer';
+    }
 });
 </script>
 </div>
