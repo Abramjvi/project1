@@ -1,0 +1,116 @@
+#organisasi {
+    background: linear-gradient(135deg, #f9f9ff 0%, #e9e9f1 100%);
+    border-left: 5px solid var(--secondary-color);
+}
+
+.organizations-carousel {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.organizations-container {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.organization-slide {
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 0 15px;
+}
+
+.organization-preview {
+    position: relative;
+    height: 300px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+}
+
+.organization-preview:hover {
+    transform: scale(1.02);
+}
+
+.organization-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.organization-preview:hover img {
+    transform: scale(1.1);
+}
+
+.organization-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(44, 62, 80, 0.8);
+    color: white;
+    padding: 15px;
+    margin: 0;
+    transition: all 0.3s ease;
+}
+
+.organization-preview:hover .organization-title {
+    background: rgba(44, 62, 80, 0.9);
+    padding-bottom: 20px;
+}
+
+.organization-card {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    position: relative;
+    background: white;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.organization-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 15px 0;
+    padding-bottom: 10px;
+}
+
+.organization-images img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+.organization-images img:hover {
+    transform: scale(1.03);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .organization-card {
+        width: 95%;
+        padding: 20px;
+    }
+    
+    .organization-images {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    
+    .organization-images img {
+        height: 120px;
+    }
+}
